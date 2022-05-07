@@ -1,16 +1,25 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+import pandas as pd
+import os
 
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+# Getting file path dynamically
+def get_file_path(dir, table_name):
+    file_name = os.listdir(f'{dir}\{table_name}')[0]
+    fp = f'{dir}\\{table_name}\\{file_name}'
+    return fp
+
+# Read a data from file
+def get_reader(fp):
+    df = pd.read_json(fp,lines= True,chunksize=1000)
+    return df
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    print_hi('Hello World')
+    BASE_DIR = input('BASE_DIR: ')
+    table_name = input('TABLE_NAME: ')
+    fp = get_file_path(BASE_DIR, table_name)
+    print(fp)
+    json_reader = get_reader(fp)
+    for idx, df in enumerate(json_reader):
+        print(f'Number of records in chunk with index {idx} is {df.shape[0]}')
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
