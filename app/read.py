@@ -4,8 +4,8 @@ import os
 
 # Getting file path dynamically
 def get_file_path(base_dir, table_name):
-    file_name = os.listdir(f'{base_dir}\{table_name}')[0]
-    fp = f'{base_dir}\{table_name}\{file_name}'
+    file_name = os.listdir(f'{base_dir}/{table_name}')[0]
+    fp = f'{base_dir}/{table_name}/{file_name}'
     return fp
 
 
